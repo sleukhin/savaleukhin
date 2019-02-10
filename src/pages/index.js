@@ -1,5 +1,4 @@
 import React from 'react';
-import { graphql } from 'gatsby';
 
 import Layout from '../components/layout';
 import SEO from '../components/seo';
@@ -12,29 +11,11 @@ const IndexPage = props => {
         Привет{' '}
         <span aria-label="машу ручкой" role="img">
           👋
-        </span>
+        </span>{' '}
+        лялячка 🦐
       </h1>
     </Layout>
   );
 };
 
-const query = graphql`
-  query {
-    allMarkdownRemark {
-      totalCount
-      edges {
-        node {
-          id
-          frontmatter {
-            title
-            date(formatString: "DD MMMM, YYYY")
-          }
-          excerpt
-        }
-      }
-    }
-  }
-`;
-
-export { query };
 export default IndexPage;
