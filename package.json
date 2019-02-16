@@ -1,9 +1,9 @@
 {
-  "name": "gatsby-starter-default",
+  "name": "savaleukhin",
   "private": true,
-  "description": "A simple starter to get up and developing quickly with Gatsby",
+  "description": "Personal site of Saveliy Leukhin",
   "version": "0.1.0",
-  "author": "Kyle Mathews <mathews.kyle@gmail.com>",
+  "author": "Saveliy Leukhin <abc.sava@gmail.com>",
   "dependencies": {
     "babel-plugin-styled-components": "^1.10.0",
     "gatsby": "^2.0.112",
@@ -17,8 +17,8 @@
     "gatsby-transformer-remark": "^2.2.4",
     "gatsby-transformer-sharp": "^2.1.13",
     "prop-types": "^15.6.2",
-    "react": "^16.7.0",
-    "react-dom": "^16.7.0",
+    "react": "^16.0.0",
+    "react-dom": "^16.0.0",
     "react-helmet": "^5.2.0",
     "styled-components": "^4.1.3"
   },
