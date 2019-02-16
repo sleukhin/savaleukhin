@@ -7,13 +7,6 @@ const IndexPage = props => {
   return (
     <Layout>
       <SEO title="Home" keywords={[`gatsby`, `application`, `react`]} />
-      <h1>
-        Привет{' '}
-        <span aria-label="машу ручкой" role="img">
-          👋
-        </span>{' '}
-        лялячка 🦐
-      </h1>
     </Layout>
   );
 };
