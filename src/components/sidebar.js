@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useState, useEffect, createElement } from 'react';
 import styled from 'styled-components';
 
 const WORKING_HOURS = [6, 15];
+const TIMEZONE = 3;
 
 const StyledSidebar = styled.div`
   background-color: white;
@@ -42,6 +43,9 @@ const WorkingHours = styled.span`
   font-weight: bold;
 `;
 
+const getHumanWorkingHours = () =>
+  `${WORKING_HOURS[0] + TIMEZONE}:00 - ${WORKING_HOURS[1] + TIMEZONE}:00 MSK`;
+
 const WorkingMessage = () => (
   <p>
     Прямо сейчас я работаю над чем-то интересным{' '}
@@ -58,53 +62,66 @@ const SleepingMessage = () => (
       💤
     </span>
     , но вы можете написать мне) И я отвечу в рабочие часы:
-    <WorkingHours>9:00 - 18:00 MSK</WorkingHours>
+    <WorkingHours>{getHumanWorkingHours()}</WorkingHours>
   </p>
 );
 
 const CrazyStuffMessage = () => (
   <p>
-    Прямо сейчас я делаю сумасшедшие вещи{' '}
+    Прямо сейчас я делаю какие-то сумасшедшие штуки{' '}
     <span aria-label="серфинг у меня на уме" role="img">
       🏄
     </span>
     , но вы можете написать мне) И я отвечу в рабочие часы:
-    <WorkingHours>9:00 - 18:00 MSK</WorkingHours>
+    <WorkingHours>{getHumanWorkingHours()}</WorkingHours>
   </p>
 );
 
-const getMessage = ([start, end]) => {
+const getMessageType = ([start, end]) => {
   const sleepingTime = [start - 3, end + 5];
   const date = new Date();
   const hour = date.getUTCHours();
 
-  return hour >= start && hour < end ? (
-    <WorkingMessage />
-  ) : hour < sleepingTime[0] || hour >= sleepingTime[1] ? (
-    <SleepingMessage />
-  ) : (
-    <CrazyStuffMessage />
-  );
+  return hour >= start && hour < end
+    ? 'WorkingMessage'
+    : hour < sleepingTime[0] || hour >= sleepingTime[1]
+    ? 'SleepingMessage'
+    : 'CrazyStuffMessage';
 };
 
-const Sidebar = ({ children }) => (
-  <StyledSidebar>
-    {children}
-    <SidebarContent>
-      <Greeting>
-        <div>
-          <h2>
-            Привет{' '}
-            <span aria-label="машу ручкой" role="img">
-              👋
-            </span>
-          </h2>
-          <About>Я Front End Engineer</About>
-          {getMessage(WORKING_HOURS)}
-        </div>
-      </Greeting>
-    </SidebarContent>
-  </StyledSidebar>
-);
+const messageMap = {
+  WorkingMessage,
+  SleepingMessage,
+  CrazyStuffMessage,
+};
+
+const Sidebar = ({ children }) => {
+  const [messageType, setMessageType] = useState();
+
+  useEffect(() => {
+    const nextMessageType = getMessageType(WORKING_HOURS);
+    nextMessageType !== messageType && setMessageType(nextMessageType);
+  });
+
+  return (
+    <StyledSidebar>
+      {children}
+      <SidebarContent>
+        <Greeting>
+          <div>
+            <h2>
+              Привет{' '}
+              <span aria-label="машу ручкой" role="img">
+                👋
+              </span>
+            </h2>
+            <About>Я Front End Engineer</About>
+            {messageType && createElement(messageMap[messageType])}
+          </div>
+        </Greeting>
+      </SidebarContent>
+    </StyledSidebar>
+  );
+};
 
 export default Sidebar;
