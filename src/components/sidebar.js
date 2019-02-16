@@ -1,5 +1,8 @@
 import React, { useState, useEffect, createElement } from 'react';
 import styled from 'styled-components';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTwitter, faGithub } from '@fortawesome/free-brands-svg-icons';
+import { faEnvelopeOpen } from '@fortawesome/free-regular-svg-icons';
 
 const WORKING_HOURS = [6, 15];
 const TIMEZONE = 3;
@@ -25,7 +28,7 @@ const SidebarContent = styled.div`
 `;
 
 const Greeting = styled.div`
-  padding: 0 60px 25px;
+  padding: 0 60px 60px;
 
   h2 {
     font-family: ${props => props.theme.fontBase};
@@ -41,6 +44,29 @@ const WorkingHours = styled.span`
   display: block;
   margin-top: 10px;
   font-weight: bold;
+`;
+
+const ContactLinks = styled.div`
+  display: flex;
+  align-items: center;
+
+  a {
+    color: rgba(16, 22, 30, 1);
+
+    &:not(:last-of-type) {
+      margin-right: 24px;
+    }
+
+    &:hover {
+      color: rgba(16, 22, 30, 0.85);
+    }
+  }
+
+  svg.link-icon {
+    width: 30px;
+    height: 30px;
+    vertical-align: middle;
+  }
 `;
 
 const getHumanWorkingHours = () =>
@@ -118,6 +144,17 @@ const Sidebar = ({ children }) => {
             <About>Я Front End Engineer</About>
             {messageType && createElement(messageMap[messageType])}
           </div>
+          <ContactLinks>
+            <a target="blank" href="https://twitter.com/zlinilla">
+              <FontAwesomeIcon className="link-icon" icon={faTwitter} />
+            </a>
+            <a target="blank" href="https://github.com/sleukhin">
+              <FontAwesomeIcon className="link-icon" icon={faGithub} />
+            </a>
+            <a href="mailto:abc.sava@gmail.com">
+              <FontAwesomeIcon className="link-icon" icon={faEnvelopeOpen} />
+            </a>
+          </ContactLinks>
         </Greeting>
       </SidebarContent>
     </StyledSidebar>
