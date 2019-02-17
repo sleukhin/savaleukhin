@@ -10,6 +10,7 @@ import './layout.css';
 
 const PageContent = styled.div`
   padding: 34px 54px;
+  max-width: 900px;
 
   @media (min-width: ${props => props.theme.screen.lg}) {
     margin-left: 450px;
